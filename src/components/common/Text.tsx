@@ -15,7 +15,7 @@ const Elements: Record<keyof typeof variants, React.ElementType> = {
 };
 
 const variants: Record<string, string> = {
-  "heading-m": "text-heading-m",
+  "heading-m": "text-4xl",
   "body-m": "text-body-m",
 };
 
