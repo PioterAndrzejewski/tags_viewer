@@ -14,14 +14,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const RightEnabled: Story = {
+export const RightButtonEnabled: Story = {
   args: {
     children: ChevronRightIcon({}),
     disabled: false,
   },
 };
 
-export const LeftDisabled: Story = {
+export const LeftButtonDisabled: Story = {
   args: {
     children: ChevronRightIcon({}),
     disabled: true,
