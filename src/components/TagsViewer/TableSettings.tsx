@@ -23,7 +23,7 @@ type TablePagesProps = {
   restDisabled: boolean;
 };
 
-const orderOptions = [
+export const orderOptions = [
   {
     value: "asc",
     label: "ascending",
@@ -34,7 +34,7 @@ const orderOptions = [
   },
 ];
 
-const sortingOptions = [
+export const sortingOptions = [
   {
     value: "popular",
     label: "popular",
