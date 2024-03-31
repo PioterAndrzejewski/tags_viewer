@@ -1,7 +1,6 @@
 import {
   Card,
   CircularProgress,
-  Paper,
   Table,
   TableBody,
   TableCell,
