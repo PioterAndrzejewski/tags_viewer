@@ -5,6 +5,9 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useEffect } from "react";
+
+import { useTags } from "src/hooks/useTags";
 
 function createData(
   name: string,
@@ -25,6 +28,15 @@ const rows = [
 ];
 
 export const TagsViewer = () => {
+  const { data } = useTags();
+
+  useEffect(() => {
+    console.log("refresh");
+    console.log(data);
+    if (!data) return;
+    console.log(data);
+  }, [data]);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
