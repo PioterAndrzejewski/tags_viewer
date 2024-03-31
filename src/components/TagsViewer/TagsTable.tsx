@@ -4,8 +4,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
+  TablePagination,
   TableRow as TableRowBase,
 } from "@mui/material";
 
@@ -47,10 +47,8 @@ export const TagsTable = (props: TagsTableProps) => {
             <Text variant='body-m'>No data</Text>
           )}
         </TableBody>
-        <TableFooter>
-          <Text variant='body-m'>Bla bla</Text>
-        </TableFooter>
       </Table>
+      <TablePagination />
     </TableContainer>
   );
 };
