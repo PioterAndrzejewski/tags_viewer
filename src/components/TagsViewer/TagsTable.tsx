@@ -7,13 +7,11 @@ import {
   TableHead,
   TableRow as TableRowBase,
 } from "@mui/material";
-import { useAtom } from "jotai";
 
 import { Text } from "src/components/common/Text";
 
 import { useTags } from "src/hooks/useTags";
-import { pageAtom, pageSizeAtom } from "src/store/viewerAtoms";
-import { TablePages } from "./TablePages";
+import { TableSettings } from "./TableSettings";
 import { TableRow } from "./TableRow";
 
 const headCells = [
@@ -27,21 +25,9 @@ const headCells = [
 export const TagsTable = () => {
   const { data } = useTags();
 
-  const [page, setPage] = useAtom(pageAtom);
-  const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
-
-  const onPageChange = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const onItemsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setItemsPerPage(parseInt(event.target.value, 1));
-    setPage(1);
-  };
-
   return (
     <TableContainer component={Paper}>
-      <TablePages
+      <TableSettings
         nextPageDisabled={!data?.has_more || !data}
         prevPageDisabled={!data}
       />
