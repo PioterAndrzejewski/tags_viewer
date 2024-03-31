@@ -26,7 +26,7 @@ type Collective = {
   tags: string[];
 };
 
-type TagDataEntry = {
+export type TagDataEntry = {
   count: number;
   has_synonyms: boolean;
   is_moderator_only: boolean;

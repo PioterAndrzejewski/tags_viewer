@@ -15,6 +15,5 @@ export const useTags = () => {
     queryFn: () => getTags({ order, sort, page, pageSize }),
     gcTime: Infinity,
     staleTime: Infinity,
-    enabled: false,
   });
 };
