@@ -78,7 +78,7 @@ export const TableSettings = (props: TablePagesProps) => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newValue = Number(event.target.value);
-    if (newValue < 0) return setRowsPerPage(0);
+    if (newValue < 1) return setRowsPerPage(1);
     if (newValue > 100) return setRowsPerPage(100);
     setRowsPerPage(newValue);
   };
