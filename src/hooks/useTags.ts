@@ -14,5 +14,7 @@ export const useTags = () => {
     queryKey: [...queryKeys.tags(params)],
     queryFn: () => getTags({ order, sort, page, pageSize }),
     gcTime: Infinity,
+    staleTime: Infinity,
+    enabled: false,
   });
 };
