@@ -38,13 +38,15 @@ export const TagsTable = () => {
 
   const renderBody = () => {
     if (isLoading) {
-      return Array.from({ length: rowsPerPage }, () => null).map((_) => (
-        <TableRow row={placeholderRow} isPlaceholder />
+      return Array.from({ length: rowsPerPage }, (_) => null).map((_, i) => (
+        <TableRow row={placeholderRow} isPlaceholder isOdd={i % 2 !== 0} />
       ));
     }
 
     if (data?.items && data.items.length > 0) {
-      return data?.items.map((row) => <TableRow row={row} key={row.name} />);
+      return data?.items.map((row, i) => (
+        <TableRow row={row} key={row.name} isOdd={i % 2 !== 0} />
+      ));
     }
 
     return (
@@ -66,7 +68,7 @@ export const TagsTable = () => {
       />
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableHead>
-          <TableRowBase>
+          <TableRowBase className='bg-gray-100'>
             {headCells.map((cell, index) => (
               <TableCell key={cell} align={index > 1 ? "center" : "left"}>
                 {cell}

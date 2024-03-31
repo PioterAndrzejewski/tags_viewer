@@ -83,7 +83,7 @@ export const TableSettings = (props: TablePagesProps) => {
   };
 
   return (
-    <div className='flex flex-1 flex-row justify-end align-center p-4 gap-12 flex-wrap'>
+    <div className='flex flex-1 flex-row justify-end align-center p-4 gap-12 flex-wrap bg-gray-100 border-b border-gray-200'>
       <Select
         label='Sort by'
         options={sortingOptions}
