@@ -1,4 +1,6 @@
+import { TextField } from "@mui/material";
 import { useAtom } from "jotai";
+import { useState } from "react";
 
 import { Button } from "src/components/common/Button";
 import { Select } from "src/components/common/Select";
@@ -47,16 +49,27 @@ const sortingOptions = [
 
 export const TableSettings = (props: TablePagesProps) => {
   const { nextPageDisabled, prevPageDisabled } = props;
+  const [rowsPerPage, setRowsPerPage] = useState(0);
 
   const [page, setPage] = useAtom(pageAtom);
   const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
   const [order, setOrder] = useAtom(orderAtom);
   const [sort, setSort] = useAtom(sortableAtom);
 
+
   const onPageChange = (change: number) => {
     if (page === 0 && change === -1) return;
     if (nextPageDisabled && change === 1) return;
     setPage((prevPage) => prevPage + change);
+  };
+
+  const onRowsPerNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newValue = Number(event.target.value);
+    if (newValue < 0) return setRowsPerPage(0);
+    if (newValue > 100) return setRowsPerPage(100);
+    setRowsPerPage(newValue);
   };
 
   return (
@@ -73,10 +86,16 @@ export const TableSettings = (props: TablePagesProps) => {
         onChange={(selectedValue) => setOrder(selectedValue as Order)}
         value={order}
       />
-      <div className='flex flex-row gap-2 items-center'>
-        <Text variant='body-m'>Rows per page:</Text>
-        <Text variant='body-m'>{JSON.stringify(itemsPerPage)}</Text>
-      </div>
+      <TextField
+        id='Rows per field'
+        label='Rows per field'
+        type='number'
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={onRowsPerNumberChange}
+        value={rowsPerPage}
+      />
       <div className='flex flex-row gap-2 items-center'>
         <Text variant='body-m'>Page: </Text>
         <Text variant='body-m'>{JSON.stringify(page)}</Text>
