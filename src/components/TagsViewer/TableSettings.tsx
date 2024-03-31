@@ -7,14 +7,15 @@ import { Select } from "src/components/common/Select";
 import { Text } from "src/components/common/Text";
 import { ChevronLeftIcon } from "src/components/icons/ChevronLeft";
 import { ChevronRightIcon } from "src/components/icons/ChevronRight";
+
+import { useDebounce } from "src/hooks/useDebounce";
+import type { Order, Sortable } from "src/services/tags";
 import {
   orderAtom,
   pageAtom,
   pageSizeAtom,
   sortableAtom,
 } from "src/store/viewerAtoms";
-
-import type { Order, Sortable } from "src/services/tags";
 
 type TablePagesProps = {
   nextPageDisabled: boolean;
@@ -49,13 +50,22 @@ const sortingOptions = [
 
 export const TableSettings = (props: TablePagesProps) => {
   const { nextPageDisabled, prevPageDisabled } = props;
-  const [rowsPerPage, setRowsPerPage] = useState(0);
 
   const [page, setPage] = useAtom(pageAtom);
-  const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
   const [order, setOrder] = useAtom(orderAtom);
   const [sort, setSort] = useAtom(sortableAtom);
+  const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
 
+  const [rowsPerPage, setRowsPerPage] = useState(itemsPerPage);
+
+  useDebounce(
+    () => {
+      setItemsPerPage(rowsPerPage);
+      setPage(1);
+    },
+    1000,
+    [rowsPerPage],
+  );
 
   const onPageChange = (change: number) => {
     if (page === 0 && change === -1) return;
@@ -77,13 +87,19 @@ export const TableSettings = (props: TablePagesProps) => {
       <Select
         label='Sort by'
         options={sortingOptions}
-        onChange={(selectedValue) => setSort(selectedValue as Sortable)}
+        onChange={(selectedValue) => {
+          setPage(1);
+          setSort(selectedValue as Sortable);
+        }}
         value={sort}
       />
       <Select
         label='Order'
         options={orderOptions}
-        onChange={(selectedValue) => setOrder(selectedValue as Order)}
+        onChange={(selectedValue) => {
+          setPage(1);
+          setOrder(selectedValue as Order);
+        }}
         value={order}
       />
       <TextField

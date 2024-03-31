@@ -1,4 +1,4 @@
-import { TagsTable } from "src/components/TagsViewer/TagsTable";
+import { TagsTable } from "src/components/tagsViewer/TagsTable";
 import { Screen } from "src/components/common/Screen";
 
 export const ViewerScreen = () => (

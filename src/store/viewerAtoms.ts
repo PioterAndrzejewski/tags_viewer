@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+
 import { Order, Sortable } from "src/services/tags";
 
 export const pageAtom = atom<number>(1);

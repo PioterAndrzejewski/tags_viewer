@@ -1,4 +1,4 @@
-import { Header } from "./Header";
+import { Header } from "src/components/common/Header";
 
 type ScreenProps = {
   header: string;
