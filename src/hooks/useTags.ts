@@ -1,18 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
+import { useAtomValue } from "jotai";
+
 import { queryKeys } from "src/services/queryKeys";
-import { Order, Sortable, getTags } from "src/services/tags";
+import { getTags } from "src/services/tags";
+import {
+  orderAtom,
+  pageAtom,
+  pageSizeAtom,
+  sortableAtom,
+} from "src/store/viewerAtoms";
 
 export const useTags = () => {
-  const order: Order = "desc";
-  const sort: Sortable = "popular";
-  const page = 1;
-  const pageSize = 10;
+  const order = useAtomValue(orderAtom);
+  const sort = useAtomValue(sortableAtom);
+  const pageSize = useAtomValue(pageSizeAtom);
+  const page = useAtomValue(pageAtom);
 
   const params = { order, sort, page, pageSize };
 
   return useQuery({
     queryKey: [...queryKeys.tags(params)],
-    queryFn: () => getTags({ order, sort, page, pageSize }),
+    queryFn: () => getTags(params),
     gcTime: Infinity,
     staleTime: Infinity,
   });

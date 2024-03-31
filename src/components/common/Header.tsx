@@ -1,4 +1,5 @@
 import classNames from "classnames";
+
 import { Text } from "src/components/common/Text";
 
 type HeaderProps = {
@@ -10,7 +11,7 @@ export const Header = (props: HeaderProps) => {
   const { children, centered = true } = props;
   return (
     <header
-      className={classNames({
+      className={classNames("mb-12", {
         "flex flex-row justify-center": !!centered,
       })}
     >
