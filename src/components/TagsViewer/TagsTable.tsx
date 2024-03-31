@@ -1,5 +1,4 @@
 import {
-  Card,
   CircularProgress,
   Table,
   TableBody,
@@ -8,7 +7,10 @@ import {
   TableHead,
   TableRow as TableRowBase,
 } from "@mui/material";
+import { AxiosError } from "axios";
 import { useAtomValue } from "jotai";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 import { Text } from "src/components/common/Text";
 import { TableRow } from "src/components/tagsViewer/TableRow";
@@ -33,8 +35,20 @@ const placeholderRow = {
 };
 
 export const TagsTable = () => {
-  const { data, isLoading } = useTags();
+  const { data, isLoading, isError, error } = useTags();
   const rowsPerPage = useAtomValue(pageSizeAtom);
+
+  useEffect(() => {
+    if (isError && error) {
+      let errorMessage: string = "";
+
+      if (error instanceof AxiosError) {
+        errorMessage = error?.response?.data.error_message;
+      }
+
+      toast.error(`There was an error: ${errorMessage || error.message}`);
+    }
+  }, [isError, error]);
 
   const renderBody = () => {
     if (isLoading) {
@@ -53,7 +67,11 @@ export const TagsTable = () => {
       <TableRowBase>
         <TableCell colSpan={5}>
           <div className='p-4 justify-center align-center flex'>
-            <Text variant='body-m'>Looks like there's no data to show</Text>
+            <Text variant='body-m'>
+              {`Looks like there's no data to show ${
+                !!isError && "due to an error - please try again later"
+              }`}
+            </Text>
           </div>
         </TableCell>
       </TableRowBase>
@@ -61,28 +79,31 @@ export const TagsTable = () => {
   };
 
   return (
-    <TableContainer component={Card}>
+    <>
       <TableSettings
         nextPageDisabled={!data?.has_more || !data || isLoading}
         prevPageDisabled={!data || isLoading}
+        restDisabled={isError}
       />
-      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-        <TableHead>
-          <TableRowBase className='bg-gray-100'>
-            {headCells.map((cell, index) => (
-              <TableCell key={cell} align={index > 1 ? "center" : "left"}>
-                {cell}
-              </TableCell>
-            ))}
-          </TableRowBase>
-        </TableHead>
-        <TableBody>{renderBody()}</TableBody>
-      </Table>
-      {isLoading && (
-        <div className='absolute inset-0 flex justify-center items-center'>
-          <CircularProgress />
-        </div>
-      )}
-    </TableContainer>
+      <TableContainer component={"div"} classes='rounded-t-none'>
+        <Table>
+          <TableHead>
+            <TableRowBase className='bg-gray-100 flex flex-col'>
+              {headCells.map((cell, index) => (
+                <TableCell key={cell} align={index > 1 ? "center" : "left"}>
+                  {cell}
+                </TableCell>
+              ))}
+            </TableRowBase>
+          </TableHead>
+          <TableBody>{renderBody()}</TableBody>
+        </Table>
+        {isLoading && (
+          <div className='absolute inset-0 flex justify-center items-center'>
+            <CircularProgress />
+          </div>
+        )}
+      </TableContainer>
+    </>
   );
 };

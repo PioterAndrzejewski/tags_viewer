@@ -13,10 +13,11 @@ type SelectProps<T> = {
   options: Option<T>[];
   value: T;
   label: string;
+  disabled: boolean;
 };
 
 export const Select = <T extends string>(props: SelectProps<T>) => {
-  const { onChange, value, options, label } = props;
+  const { onChange, value, options, label, disabled } = props;
 
   const handleChange = (event: SelectChangeEvent) => {
     const newValue = event.target.value as T;
@@ -35,6 +36,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
         onChange={handleChange}
         autoWidth
         label={label}
+        disabled={disabled}
       >
         {options.map((option) => (
           <MenuItem value={option.value}>{option.label}</MenuItem>

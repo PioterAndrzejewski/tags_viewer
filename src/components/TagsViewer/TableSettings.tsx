@@ -20,6 +20,7 @@ import {
 type TablePagesProps = {
   nextPageDisabled: boolean;
   prevPageDisabled: boolean;
+  restDisabled: boolean;
 };
 
 const orderOptions = [
@@ -49,7 +50,7 @@ const sortingOptions = [
 ];
 
 export const TableSettings = (props: TablePagesProps) => {
-  const { nextPageDisabled, prevPageDisabled } = props;
+  const { nextPageDisabled, prevPageDisabled, restDisabled } = props;
 
   const [page, setPage] = useAtom(pageAtom);
   const [order, setOrder] = useAtom(orderAtom);
@@ -83,7 +84,7 @@ export const TableSettings = (props: TablePagesProps) => {
   };
 
   return (
-    <div className='flex flex-1 flex-row justify-end align-center p-4 gap-12 flex-wrap bg-gray-100 border-b border-gray-200'>
+    <div className='flex flex-1 flex-row justify-end align-center p-4 gap-12 flex-wrap bg-gray-100 border-b border-gray-200 rounded-t-sm'>
       <Select
         label='Sort by'
         options={sortingOptions}
@@ -92,6 +93,7 @@ export const TableSettings = (props: TablePagesProps) => {
           setSort(selectedValue as Sortable);
         }}
         value={sort}
+        disabled={restDisabled}
       />
       <Select
         label='Order'
@@ -101,6 +103,7 @@ export const TableSettings = (props: TablePagesProps) => {
           setOrder(selectedValue as Order);
         }}
         value={order}
+        disabled={restDisabled}
       />
       <TextField
         id='Rows per field'
@@ -111,6 +114,7 @@ export const TableSettings = (props: TablePagesProps) => {
         }}
         onChange={onRowsPerNumberChange}
         value={rowsPerPage}
+        disabled={restDisabled}
       />
       <div className='flex flex-row gap-2 items-center'>
         <Text variant='body-m'>Page: </Text>
