@@ -1,5 +1,4 @@
 import { TextField } from "@mui/material";
-import { useAtom } from "jotai";
 import { useState } from "react";
 
 import { Button } from "src/components/common/Button";
@@ -9,13 +8,8 @@ import { ChevronLeftIcon } from "src/components/icons/ChevronLeft";
 import { ChevronRightIcon } from "src/components/icons/ChevronRight";
 
 import { useDebounce } from "src/hooks/useDebounce";
-import type { Order, Sortable } from "src/services/tags";
-import {
-  orderAtom,
-  pageAtom,
-  pageSizeAtom,
-  sortableAtom,
-} from "src/store/viewerAtoms";
+import { useFilters } from 'src/hooks/useFilters';
+import { filtersReducer } from 'src/utils/filtersReducer';
 
 type TablePagesProps = {
   nextPageDisabled: boolean;
@@ -52,27 +46,21 @@ export const sortingOptions = [
 export const TableSettings = (props: TablePagesProps) => {
   const { nextPageDisabled, prevPageDisabled, restDisabled } = props;
 
-  const [page, setPage] = useAtom(pageAtom);
-  const [order, setOrder] = useAtom(orderAtom);
-  const [sort, setSort] = useAtom(sortableAtom);
-  const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
+  const {setFilters, pageNumber, itemsPerPage, sort, order} = useFilters();
 
-  const [rowsPerPage, setRowsPerPage] = useState(itemsPerPage);
+  const [rowsPerPage, setRowsPerPage] = useState(Number(itemsPerPage));
 
   useDebounce(
     () => {
-      setItemsPerPage(rowsPerPage);
-      setPage(1);
+      setFilters((prev) => filtersReducer(prev, 'perPage', rowsPerPage))
     },
     1000,
     [rowsPerPage],
   );
 
   const onPageChange = (change: number) => {
-    if (page === 0 && change === -1) return;
-    if (nextPageDisabled && change === 1) return;
-    setPage((prevPage) => prevPage + change);
-  };
+    setFilters((prev) => filtersReducer(prev, 'page', change))
+  }
 
   const onRowsPerNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -89,8 +77,7 @@ export const TableSettings = (props: TablePagesProps) => {
         label='Sort by'
         options={sortingOptions}
         onChange={(selectedValue) => {
-          setPage(1);
-          setSort(selectedValue as Sortable);
+          setFilters(prev => filtersReducer(prev, 'sort', selectedValue))
         }}
         value={sort}
         disabled={restDisabled}
@@ -99,8 +86,7 @@ export const TableSettings = (props: TablePagesProps) => {
         label='Order'
         options={orderOptions}
         onChange={(selectedValue) => {
-          setPage(1);
-          setOrder(selectedValue as Order);
+          setFilters(prev => filtersReducer(prev, 'order', selectedValue))
         }}
         value={order}
         disabled={restDisabled}
@@ -118,12 +104,12 @@ export const TableSettings = (props: TablePagesProps) => {
       />
       <div className='flex flex-row gap-2 items-center'>
         <Text variant='body-m'>Page: </Text>
-        <Text variant='body-m'>{JSON.stringify(page)}</Text>
+        <Text variant='body-m'>{pageNumber}</Text>
       </div>
       <div className='flex flex-row gap-4 items-center'>
         <Button
           onClick={() => onPageChange(-1)}
-          disabled={prevPageDisabled || page === 1}
+          disabled={prevPageDisabled || Number(pageNumber) < 2 }
         >
           <ChevronLeftIcon color='' />
         </Button>
