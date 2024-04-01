@@ -50,7 +50,8 @@ The app consists of several elements:
 - [ ] Loading and error handling
 
 ![image](https://github.com/PioterAndrzejewski/tags_viewer/assets/109315248/59020bab-af78-4f37-a4dc-4228a911bf41)
-    
+![image](https://github.com/PioterAndrzejewski/tags_viewer/assets/109315248/915ddc5e-ad90-4891-91fc-f8483ee26d2b)
+
 
 - [ ] Storybook
 
