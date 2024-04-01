@@ -29,8 +29,8 @@ export const TableRow = (props: TableRowProps) => {
 
   const renderIcon = (value: boolean) => (value ? <TickIcon /> : <CrossIcon />);
 
-  const tickCell = (value: boolean) => (
-    <TableCell align='center' className='center'>
+  const tickCell = (value: boolean, index: number) => (
+    <TableCell align='center' className='center' key={index}>
       <div className='flex flex-1 flex-row justify-center'>
         {!!isPlaceholder ? <PlaceholderIcon /> : renderIcon(value)}
       </div>
@@ -45,7 +45,7 @@ export const TableRow = (props: TableRowProps) => {
       <TableCell component='th' scope='row' align='left'>
         {!isPlaceholder && name}
       </TableCell>
-      {restFields.map((field) => tickCell(field))}
+      {restFields.map((field, index) => tickCell(field, index))}
     </TableRowBase>
   );
 };

@@ -39,7 +39,9 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
         disabled={disabled}
       >
         {options.map((option) => (
-          <MenuItem value={option.value}>{option.label}</MenuItem>
+          <MenuItem value={option.value} key={option.value}>
+            {option.label}
+          </MenuItem>
         ))}
       </SelectBase>
     </FormControl>

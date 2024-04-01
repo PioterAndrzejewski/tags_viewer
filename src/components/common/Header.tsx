@@ -31,7 +31,12 @@ export const Header = (props: HeaderProps) => {
         {links.map((link) => {
           const Icon = link.Icon;
           return (
-            <Button children={<Icon size={24} />} as='a' linkTo={link.linkTo} />
+            <Button
+              children={<Icon size={24} />}
+              as='a'
+              linkTo={link.linkTo}
+              key={link.linkTo}
+            />
           );
         })}
       </nav>

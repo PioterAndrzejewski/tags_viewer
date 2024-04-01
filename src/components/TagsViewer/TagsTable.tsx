@@ -58,7 +58,12 @@ export const TagsTable = () => {
     if (isLoading) {
       return Array.from({ length: Number(itemsPerPage) }, (_) => null).map(
         (_, i) => (
-          <TableRow row={placeholderRow} isPlaceholder isOdd={i % 2 !== 0} />
+          <TableRow
+            row={placeholderRow}
+            isPlaceholder
+            isOdd={i % 2 !== 0}
+            key={i}
+          />
         ),
       );
     }
