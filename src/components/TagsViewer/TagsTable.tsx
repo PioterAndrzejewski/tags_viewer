@@ -15,6 +15,7 @@ import { Text } from "src/components/common/Text";
 import { TableRow } from "src/components/tagsViewer/TableRow";
 import { TableSettings } from "src/components/tagsViewer/TableSettings";
 import { useFilters } from "src/hooks/useFilters";
+import { useFiltersGuard } from "src/hooks/useFiltersGuard";
 import { useTags } from "src/hooks/useTags";
 import { InfoIcon } from "../icons/Info";
 
@@ -37,6 +38,7 @@ const placeholderRow = {
 export const TagsTable = () => {
   const { data, isLoading, isError, error } = useTags();
   const { itemsPerPage } = useFilters();
+  useFiltersGuard();
 
   useEffect(() => {
     if (isError && error) {

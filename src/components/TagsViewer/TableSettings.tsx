@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { Button } from "src/components/common/Button";
@@ -58,6 +58,12 @@ export const TableSettings = (props: TablePagesProps) => {
     1000,
     [rowsPerPage],
   );
+
+  useEffect(() => {
+    if (itemsPerPage && Number(itemsPerPage) !== rowsPerPage) {
+      setRowsPerPage(Number(itemsPerPage));
+    }
+  }, [itemsPerPage]);
 
   const onPageChange = (change: number) => {
     setFilters((prev) => filtersReducer(prev, "page", change));
