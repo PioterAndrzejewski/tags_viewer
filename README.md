@@ -4,9 +4,7 @@
 <div align="center">
   <a href="https://github.com/PioterAndrzejewski/tags_viewer/">
   </a>
-
-<h3 align="center">Tags Viewer</h3>
-
+  
   <p align="center">
    A single page application presenting communication with the API.
     <br />
