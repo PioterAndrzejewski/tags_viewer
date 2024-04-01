@@ -18,7 +18,7 @@
 After cloning the repository and installing dependencies run the app using npm start command. 
 
   ```sh
-  $ git clone [https://github.com/PioterAndrzejewski/products_getter.git](https://github.com/PioterAndrzejewski/tags_viewer.git)
+  $ git clone https://github.com/PioterAndrzejewski/tags_viewer.git
   $ cd tags_viewer
   $ npm i
   $ npm run start
