@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "src/components/common/Button";
+import { ChevronLeftIcon } from "src/components/icons/ChevronLeft";
 import { ChevronRightIcon } from "src/components/icons/ChevronRight";
 
 const meta: Meta<typeof Button> = {
@@ -23,7 +24,7 @@ export const RightButtonEnabled: Story = {
 
 export const LeftButtonDisabled: Story = {
   args: {
-    children: ChevronRightIcon({}),
+    children: ChevronLeftIcon({}),
     disabled: true,
   },
 };

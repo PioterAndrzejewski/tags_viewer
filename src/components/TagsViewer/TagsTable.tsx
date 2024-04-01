@@ -8,15 +8,14 @@ import {
   TableRow as TableRowBase,
 } from "@mui/material";
 import { AxiosError } from "axios";
-import { useAtomValue } from "jotai";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 import { Text } from "src/components/common/Text";
 import { TableRow } from "src/components/tagsViewer/TableRow";
 import { TableSettings } from "src/components/tagsViewer/TableSettings";
+import { useFilters } from "src/hooks/useFilters";
 import { useTags } from "src/hooks/useTags";
-import { pageSizeAtom } from "src/store/viewerAtoms";
 import { InfoIcon } from "../icons/Info";
 
 const headCells = [
@@ -37,7 +36,7 @@ const placeholderRow = {
 
 export const TagsTable = () => {
   const { data, isLoading, isError, error } = useTags();
-  const rowsPerPage = useAtomValue(pageSizeAtom);
+  const { itemsPerPage } = useFilters();
 
   useEffect(() => {
     if (isError && error) {
@@ -57,9 +56,11 @@ export const TagsTable = () => {
 
   const renderBody = () => {
     if (isLoading) {
-      return Array.from({ length: rowsPerPage }, (_) => null).map((_, i) => (
-        <TableRow row={placeholderRow} isPlaceholder isOdd={i % 2 !== 0} />
-      ));
+      return Array.from({ length: Number(itemsPerPage) }, (_) => null).map(
+        (_, i) => (
+          <TableRow row={placeholderRow} isPlaceholder isOdd={i % 2 !== 0} />
+        ),
+      );
     }
 
     if (data?.items && data.items.length > 0) {
@@ -73,7 +74,7 @@ export const TagsTable = () => {
         <TableCell colSpan={5}>
           <div className='p-4 justify-center align-center flex flex-row gap-4'>
             <InfoIcon color='#ff753e' />
-            <Text variant='body-m'>
+            <Text>
               {`Looks like there's no data to show${
                 !!isError && " due to an error - please try again later"
               }`}

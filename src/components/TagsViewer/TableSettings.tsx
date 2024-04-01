@@ -8,8 +8,8 @@ import { ChevronLeftIcon } from "src/components/icons/ChevronLeft";
 import { ChevronRightIcon } from "src/components/icons/ChevronRight";
 
 import { useDebounce } from "src/hooks/useDebounce";
-import { useFilters } from 'src/hooks/useFilters';
-import { filtersReducer } from 'src/utils/filtersReducer';
+import { useFilters } from "src/hooks/useFilters";
+import { filtersReducer } from "src/utils/filtersReducer";
 
 type TablePagesProps = {
   nextPageDisabled: boolean;
@@ -46,21 +46,21 @@ export const sortingOptions = [
 export const TableSettings = (props: TablePagesProps) => {
   const { nextPageDisabled, prevPageDisabled, restDisabled } = props;
 
-  const {setFilters, pageNumber, itemsPerPage, sort, order} = useFilters();
+  const { setFilters, pageNumber, itemsPerPage, sort, order } = useFilters();
 
   const [rowsPerPage, setRowsPerPage] = useState(Number(itemsPerPage));
 
   useDebounce(
     () => {
-      setFilters((prev) => filtersReducer(prev, 'perPage', rowsPerPage))
+      setFilters((prev) => filtersReducer(prev, "perPage", rowsPerPage));
     },
     1000,
     [rowsPerPage],
   );
 
   const onPageChange = (change: number) => {
-    setFilters((prev) => filtersReducer(prev, 'page', change))
-  }
+    setFilters((prev) => filtersReducer(prev, "page", change));
+  };
 
   const onRowsPerNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -77,7 +77,7 @@ export const TableSettings = (props: TablePagesProps) => {
         label='Sort by'
         options={sortingOptions}
         onChange={(selectedValue) => {
-          setFilters(prev => filtersReducer(prev, 'sort', selectedValue))
+          setFilters((prev) => filtersReducer(prev, "sort", selectedValue));
         }}
         value={sort}
         disabled={restDisabled}
@@ -86,7 +86,7 @@ export const TableSettings = (props: TablePagesProps) => {
         label='Order'
         options={orderOptions}
         onChange={(selectedValue) => {
-          setFilters(prev => filtersReducer(prev, 'order', selectedValue))
+          setFilters((prev) => filtersReducer(prev, "order", selectedValue));
         }}
         value={order}
         disabled={restDisabled}
@@ -103,13 +103,13 @@ export const TableSettings = (props: TablePagesProps) => {
         disabled={restDisabled}
       />
       <div className='flex flex-row gap-2 items-center'>
-        <Text variant='body-m'>Page: </Text>
-        <Text variant='body-m'>{pageNumber}</Text>
+        <Text>Page: </Text>
+        <Text>{pageNumber}</Text>
       </div>
       <div className='flex flex-row gap-4 items-center'>
         <Button
           onClick={() => onPageChange(-1)}
-          disabled={prevPageDisabled || Number(pageNumber) < 2 }
+          disabled={prevPageDisabled || Number(pageNumber) < 2}
         >
           <ChevronLeftIcon color='' />
         </Button>

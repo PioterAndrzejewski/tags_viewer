@@ -4,6 +4,7 @@ type Location = {
 };
 
 export type Filter = "page" | "perPage" | "sort" | "order";
+
 type NewValue<T extends Filter> = T extends "page" | "perPage"
   ? number
   : string;

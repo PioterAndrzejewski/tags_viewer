@@ -6,7 +6,7 @@ type TextProps = {
   className?: string;
   style?: CSSProperties;
   children: string;
-  variant: keyof typeof variants;
+  variant?: keyof typeof variants;
 };
 
 const Elements: Record<keyof typeof variants, React.ElementType> = {
@@ -20,7 +20,7 @@ const variants: Record<string, string> = {
 };
 
 export const Text = (props: TextProps) => {
-  const { as = "p", className, style, children, variant } = props;
+  const { as = "p", className, style, children, variant = "body-m" } = props;
 
   const DefaultElement = Elements[variant];
   const Element = as ?? DefaultElement;
@@ -31,7 +31,7 @@ export const Text = (props: TextProps) => {
       style={{ ...style }}
       className={classNames({
         [variantClassnames]: !!variantClassnames,
-        [className!!]: !!className,
+        [className!]: !!className,
       })}
     >
       {children}
