@@ -10,15 +10,15 @@ import {
 import { AxiosError } from "axios";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-
 import classNames from "classnames";
+
 import { Text } from "src/components/common/Text";
-import { TableRow } from "src/components/tagsViewer/TableRow";
-import { TableSettings } from "src/components/tagsViewer/TableSettings";
 import { useFilters } from "src/hooks/useFilters";
 import { useFiltersGuard } from "src/hooks/useFiltersGuard";
 import { useTags } from "src/hooks/useTags";
-import { InfoIcon } from "../icons/Info";
+import { InfoIcon } from "src/components/icons/Info";
+import { TableRow } from "src/components/TagsViewer/TableRow";
+import { TableSettings } from "src/components/TagsViewer/TableSettings";
 
 const headCells = [
   "Count",

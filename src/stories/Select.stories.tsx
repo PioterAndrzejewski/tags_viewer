@@ -4,7 +4,7 @@ import { Select } from "src/components/common/Select";
 import {
   orderOptions,
   sortingOptions,
-} from "src/components/tagsViewer/TableSettings";
+} from "src/components/TagsViewer/TableSettings";
 
 const meta: Meta<typeof Select> = {
   title: "Select",

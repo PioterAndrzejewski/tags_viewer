@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { TableSettings } from "src/components/tagsViewer/TableSettings";
+import { TableSettings } from "src/components/TagsViewer/TableSettings";
 
 const meta: Meta<typeof TableSettings> = {
   title: "Table Settings",
