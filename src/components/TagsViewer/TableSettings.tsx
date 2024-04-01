@@ -53,14 +53,23 @@ export const TableSettings = (props: TablePagesProps) => {
 
   useDebounce(
     () => {
-      setFilters((prev) => filtersReducer(prev, "perPage", rowsPerPage));
+      let newValue = rowsPerPage;
+      if (newValue < 1) {
+        newValue = 1;
+        toast("Min rows per page is 1");
+      }
+      if (newValue > 100) {
+        toast("Max rows per page is 100");
+        newValue = 100;
+      }
+      setFilters((prev) => filtersReducer(prev, "perPage", newValue));
     },
     1000,
     [rowsPerPage],
   );
 
   useEffect(() => {
-    if (itemsPerPage && Number(itemsPerPage) !== rowsPerPage) {
+    if (itemsPerPage || itemsPerPage === "0") {
       setRowsPerPage(Number(itemsPerPage));
     }
   }, [itemsPerPage]);
@@ -72,12 +81,7 @@ export const TableSettings = (props: TablePagesProps) => {
   const onRowsPerNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const newValue = Number(event.target.value);
-    if (newValue < 1) return setRowsPerPage(1);
-    if (newValue > 100) {
-      toast("Max rows per page is 100");
-      return setRowsPerPage(100);
-    }
+    const newValue = Number(event.target.value.replace(/\D/g, ""));
     setRowsPerPage(newValue);
   };
 
@@ -105,14 +109,11 @@ export const TableSettings = (props: TablePagesProps) => {
         id='Rows per page'
         label='Rows per page'
         type='number'
-        InputLabelProps={{
-          shrink: true,
-        }}
         onChange={onRowsPerNumberChange}
         value={rowsPerPage}
         disabled={restDisabled}
       />
-      <div className='flex flex-row gap-2 items-center'>
+      <div className='flex flex-row gap-2 items-center min-w-20'>
         <Text>Page: </Text>
         <Text>{pageNumber}</Text>
       </div>

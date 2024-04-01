@@ -11,6 +11,7 @@ import { AxiosError } from "axios";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
+import classNames from "classnames";
 import { Text } from "src/components/common/Text";
 import { TableRow } from "src/components/tagsViewer/TableRow";
 import { TableSettings } from "src/components/tagsViewer/TableSettings";
@@ -104,7 +105,14 @@ export const TagsTable = () => {
           <TableHead>
             <TableRowBase className='bg-gray-100 flex flex-col'>
               {headCells.map((cell, index) => (
-                <TableCell key={cell} align={index > 1 ? "center" : "left"}>
+                <TableCell
+                  key={cell}
+                  align={index > 1 ? "center" : "left"}
+                  className={classNames({
+                    "min-w-40": index < 2,
+                    "min-w-24": index >= 2,
+                  })}
+                >
                   {cell}
                 </TableCell>
               ))}
