@@ -1,4 +1,4 @@
-export const GithubIcon = () => {
+export const GithubIcon = ({ size = 24 }: { size?: number }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

@@ -73,10 +73,10 @@ export const TagsTable = () => {
       <TableRowBase>
         <TableCell colSpan={5}>
           <div className='p-4 justify-center align-center flex flex-row gap-4'>
-            <InfoIcon color='#ff753e' />
+            <InfoIcon color='#cf5402' />
             <Text>
               {`Looks like there's no data to show${
-                !!isError && " due to an error - please try again later"
+                isError ? " due to an error - please try again later" : ""
               }`}
             </Text>
           </div>

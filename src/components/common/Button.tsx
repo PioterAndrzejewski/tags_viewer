@@ -2,13 +2,15 @@ import classNames from "classnames";
 import { SyntheticEvent } from "react";
 
 type ButtonProps = {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
+  as?: "button" | "a";
+  linkTo?: string;
 };
 
 export const Button = (props: ButtonProps) => {
-  const { onClick, disabled } = props;
+  const { onClick, disabled = false, as = "button", linkTo } = props;
 
   const handleClick = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -17,9 +19,12 @@ export const Button = (props: ButtonProps) => {
     onClick();
   };
 
+  const Element = as;
+
   return (
-    <button
-      onClick={handleClick}
+    <Element
+      onClick={as === "button" ? handleClick : undefined}
+      href={as === "a" ? linkTo : undefined}
       className={classNames("p-1", {
         "hover:bg-blue-100 hover:rounded-full cursor-pointer": !disabled,
         "opacity-25": !!disabled,
@@ -27,6 +32,6 @@ export const Button = (props: ButtonProps) => {
       disabled={disabled}
     >
       {props.children}
-    </button>
+    </Element>
   );
 };

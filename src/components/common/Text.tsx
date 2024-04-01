@@ -12,11 +12,13 @@ type TextProps = {
 const Elements: Record<keyof typeof variants, React.ElementType> = {
   "heading-m": "h1",
   "body-m": "p",
+  "body-s": "p",
 };
 
 const variants: Record<string, string> = {
   "heading-m": "text-4xl",
-  "body-m": "text-body-m",
+  "body-m": "text-m",
+  "body-s": "text-sm",
 };
 
 export const Text = (props: TextProps) => {
