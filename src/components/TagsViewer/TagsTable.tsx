@@ -1,5 +1,4 @@
 import {
-  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -81,11 +80,14 @@ export const TagsTable = () => {
   return (
     <>
       <TableSettings
-        nextPageDisabled={!data?.has_more || !data || isLoading}
-        prevPageDisabled={!data || isLoading}
-        restDisabled={isError}
+        // nextPageDisabled={!data?.has_more || !data || isLoading}
+        // prevPageDisabled={!data || isLoading}
+        // restDisabled={isError}
+        nextPageDisabled={false}
+        prevPageDisabled={false}
+        restDisabled={false}
       />
-      <TableContainer component={"div"} classes='rounded-t-none'>
+      <TableContainer component={"div"} className='rounded-t-none'>
         <Table>
           <TableHead>
             <TableRowBase className='bg-gray-100 flex flex-col'>
@@ -98,11 +100,11 @@ export const TagsTable = () => {
           </TableHead>
           <TableBody>{renderBody()}</TableBody>
         </Table>
-        {isLoading && (
+        {/* {isLoading && (
           <div className='absolute inset-0 flex justify-center items-center'>
             <CircularProgress />
           </div>
-        )}
+        )} */}
       </TableContainer>
     </>
   );

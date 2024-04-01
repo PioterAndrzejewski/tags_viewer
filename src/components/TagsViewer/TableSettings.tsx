@@ -11,6 +11,7 @@ import { ChevronRightIcon } from "src/components/icons/ChevronRight";
 import { useDebounce } from "src/hooks/useDebounce";
 import type { Order, Sortable } from "src/services/tags";
 import {
+  filtersAtom,
   orderAtom,
   pageAtom,
   pageSizeAtom,
@@ -56,8 +57,11 @@ export const TableSettings = (props: TablePagesProps) => {
   const [order, setOrder] = useAtom(orderAtom);
   const [sort, setSort] = useAtom(sortableAtom);
   const [itemsPerPage, setItemsPerPage] = useAtom(pageSizeAtom);
+  const [filters, setFilters] = useAtom(filtersAtom);
+  const pageNumber = filters.searchParams?.get('page') || '1';
 
   const [rowsPerPage, setRowsPerPage] = useState(itemsPerPage);
+
 
   useDebounce(
     () => {
@@ -69,10 +73,26 @@ export const TableSettings = (props: TablePagesProps) => {
   );
 
   const onPageChange = (change: number) => {
-    if (page === 0 && change === -1) return;
-    if (nextPageDisabled && change === 1) return;
-    setPage((prevPage) => prevPage + change);
-  };
+    setFilters((prev) => {
+      if (pageNumber === '0' && change === -1) return prev;
+      if (nextPageDisabled && change === 1) return prev;
+
+      const newPage = Number(pageNumber) + change
+      const newPageStr = JSON.stringify(newPage)
+
+      let searchParams = prev.searchParams;
+      if (searchParams) {
+        searchParams.set('page', newPageStr)
+      } else {
+        searchParams = new URLSearchParams({page: newPageStr})
+      }
+
+      return {
+        ...prev,
+        searchParams,
+      }
+    })
+    }
 
   const onRowsPerNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -118,12 +138,12 @@ export const TableSettings = (props: TablePagesProps) => {
       />
       <div className='flex flex-row gap-2 items-center'>
         <Text variant='body-m'>Page: </Text>
-        <Text variant='body-m'>{JSON.stringify(page)}</Text>
+        <Text variant='body-m'>{filters.searchParams?.get('page') || '1'}</Text>
       </div>
       <div className='flex flex-row gap-4 items-center'>
         <Button
           onClick={() => onPageChange(-1)}
-          disabled={prevPageDisabled || page === 1}
+          disabled={prevPageDisabled || Number(pageNumber) < 2 }
         >
           <ChevronLeftIcon color='' />
         </Button>

@@ -23,5 +23,6 @@ export const useTags = () => {
     queryFn: () => getTags(params),
     gcTime: Infinity,
     staleTime: Infinity,
+    enabled: false,
   });
 };
