@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { Button } from "src/components/common/Button";
 import { Select } from "src/components/common/Select";
@@ -67,7 +68,10 @@ export const TableSettings = (props: TablePagesProps) => {
   ) => {
     const newValue = Number(event.target.value);
     if (newValue < 1) return setRowsPerPage(1);
-    if (newValue > 100) return setRowsPerPage(100);
+    if (newValue > 100) {
+      toast("Max rows per page is 100");
+      return setRowsPerPage(100);
+    }
     setRowsPerPage(newValue);
   };
 
@@ -92,8 +96,8 @@ export const TableSettings = (props: TablePagesProps) => {
         disabled={restDisabled}
       />
       <TextField
-        id='Rows per field'
-        label='Rows per field'
+        id='Rows per page'
+        label='Rows per page'
         type='number'
         InputLabelProps={{
           shrink: true,
