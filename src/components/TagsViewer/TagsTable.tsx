@@ -109,8 +109,9 @@ export const TagsTable = () => {
                   key={cell}
                   align={index > 1 ? "center" : "left"}
                   className={classNames({
-                    "min-w-40": index < 2,
-                    "min-w-24": index >= 2,
+                    "w-40": index === 0,
+                    "w-max": index === 1,
+                    "min-w-24": index > 1,
                   })}
                 >
                   {cell}

@@ -44,7 +44,7 @@ export const TableRow = (props: TableRowProps) => {
       <TableCell align='left' className='w-40'>
         {!isPlaceholder && count}
       </TableCell>
-      <TableCell component='th' scope='row' align='left' className='w-40'>
+      <TableCell component='th' scope='row' align='left' className='w-max'>
         {!isPlaceholder && name}
       </TableCell>
       {restFields.map((field, index) => tickCell(field, index))}
