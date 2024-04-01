@@ -86,7 +86,7 @@ export const TableSettings = (props: TablePagesProps) => {
   };
 
   return (
-    <div className='flex flex-1 flex-row justify-end align-center p-4 gap-12 flex-wrap bg-gray-100 border-b border-gray-200 rounded-t-sm'>
+    <div className='flex flex-1 flex-col lg:flex-row justify-center lg:justify-end align-center p-4 gap-4 lg:gap-12 flex-wrap bg-gray-100 border-b border-gray-200 rounded-t-sm'>
       <Select
         label='Sort by'
         options={sortingOptions}
@@ -113,20 +113,22 @@ export const TableSettings = (props: TablePagesProps) => {
         value={rowsPerPage}
         disabled={restDisabled}
       />
-      <div className='flex flex-row gap-2 items-center min-w-20'>
-        <Text>Page: </Text>
-        <Text>{pageNumber}</Text>
-      </div>
-      <div className='flex flex-row gap-4 items-center'>
-        <Button
-          onClick={() => onPageChange(-1)}
-          disabled={prevPageDisabled || Number(pageNumber) < 2}
-        >
-          <ChevronLeftIcon color='' />
-        </Button>
-        <Button onClick={() => onPageChange(1)} disabled={nextPageDisabled}>
-          <ChevronRightIcon />
-        </Button>
+      <div className='flex flex-row self-end lg:self-center'>
+        <div className='flex flex-row gap-2 items-center min-w-20'>
+          <Text>Page: </Text>
+          <Text>{pageNumber}</Text>
+        </div>
+        <div className='flex flex-row gap-4 items-center'>
+          <Button
+            onClick={() => onPageChange(-1)}
+            disabled={prevPageDisabled || Number(pageNumber) < 2}
+          >
+            <ChevronLeftIcon color='' />
+          </Button>
+          <Button onClick={() => onPageChange(1)} disabled={nextPageDisabled}>
+            <ChevronRightIcon />
+          </Button>
+        </div>
       </div>
     </div>
   );

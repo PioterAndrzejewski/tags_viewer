@@ -34,7 +34,6 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
         id={label}
         value={value}
         onChange={handleChange}
-        autoWidth
         label={label}
         disabled={disabled}
       >
