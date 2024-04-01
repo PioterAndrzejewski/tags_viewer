@@ -24,6 +24,8 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     onChange(newValue);
   };
 
+  console.log(value);
+
   return (
     <FormControl>
       <InputLabel id={label} className='capitalize'>
