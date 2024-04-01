@@ -45,7 +45,7 @@ The app consists of several elements:
 
 - [ ] Table settings - allow to configure ordering, sorting, page size and page number
 
-- [ ] Results table - printing data in row
+- [ ] Results table - printing data in rows
 
 - [ ] Loading and error handling
 
