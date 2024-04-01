@@ -50,7 +50,6 @@ export const TableSettings = (props: TablePagesProps) => {
 
   const [rowsPerPage, setRowsPerPage] = useState(Number(itemsPerPage));
 
-
   useDebounce(
     () => {
       setFilters((prev) => filtersReducer(prev, 'perPage', rowsPerPage))

@@ -1,4 +1,5 @@
 import {
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -16,6 +17,7 @@ import { TableRow } from "src/components/tagsViewer/TableRow";
 import { TableSettings } from "src/components/tagsViewer/TableSettings";
 import { useTags } from "src/hooks/useTags";
 import { pageSizeAtom } from "src/store/viewerAtoms";
+import { InfoIcon } from "../icons/Info";
 
 const headCells = [
   "Count",
@@ -45,7 +47,11 @@ export const TagsTable = () => {
         errorMessage = error?.response?.data.error_message;
       }
 
-      toast.error(`There was an error: ${errorMessage || error.message}`);
+      toast.error(
+        `There was an error: ${
+          errorMessage.length > 0 ? errorMessage : error.message
+        }`,
+      );
     }
   }, [isError, error]);
 
@@ -65,10 +71,11 @@ export const TagsTable = () => {
     return (
       <TableRowBase>
         <TableCell colSpan={5}>
-          <div className='p-4 justify-center align-center flex'>
+          <div className='p-4 justify-center align-center flex flex-row gap-4'>
+            <InfoIcon color='#ff753e' />
             <Text variant='body-m'>
-              {`Looks like there's no data to show ${
-                !!isError && "due to an error - please try again later"
+              {`Looks like there's no data to show${
+                !!isError && " due to an error - please try again later"
               }`}
             </Text>
           </div>
@@ -80,12 +87,9 @@ export const TagsTable = () => {
   return (
     <>
       <TableSettings
-        // nextPageDisabled={!data?.has_more || !data || isLoading}
-        // prevPageDisabled={!data || isLoading}
-        // restDisabled={isError}
-        nextPageDisabled={false}
-        prevPageDisabled={false}
-        restDisabled={false}
+        nextPageDisabled={!data?.has_more || !data || isLoading}
+        prevPageDisabled={!data || isLoading}
+        restDisabled={isError}
       />
       <TableContainer component={"div"} className='rounded-t-none'>
         <Table>
@@ -100,11 +104,11 @@ export const TagsTable = () => {
           </TableHead>
           <TableBody>{renderBody()}</TableBody>
         </Table>
-        {/* {isLoading && (
+        {isLoading && (
           <div className='absolute inset-0 flex justify-center items-center'>
             <CircularProgress />
           </div>
-        )} */}
+        )}
       </TableContainer>
     </>
   );

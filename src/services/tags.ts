@@ -8,8 +8,8 @@ export type Order = "asc" | "desc";
 export type TagsDataRequestParams = {
   order: Order;
   sort: Sortable;
-  page: number;
-  pageSize: number;
+  page: string;
+  pageSize: string;
 };
 
 type ExternalLink = {
